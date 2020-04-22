@@ -48,14 +48,6 @@ const Login = () => {
     }
 
     const onSubmit = data => {
-    // if(data.rememberMe) {
-    //     localStorage.setItem("email", data.email);
-    //     localStorage.setItem("rememberMe", data.rememberMe);
-    // } else {
-    //     localStorage.removeItem("email");
-    //     localStorage.removeItem("rememberMe");
-    // }
-    // console.log(data)
         fetch("/users/login", {
             method: "POST",
             headers: {
