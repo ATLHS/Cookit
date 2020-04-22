@@ -47,7 +47,7 @@ const Login = () => {
         console.log("clicked")
     }
 
-    const onSubmit = data => {
+    const onSubmit = data => { 
         fetch("/users/login", {
             method: "POST",
             headers: {
