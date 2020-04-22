@@ -1,0 +1,33 @@
+.loginCta
+{
+    background-color: rgb(126, 57, 255) !important; 
+}
+
+#loginContainer
+{
+    width: 65%;
+}
+.login
+{
+    position: relative;
+    top: 60%;
+    transform: translateY(-60%);
+}
+.loginWrapper
+{
+    margin: auto;
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
+}
+@media screen and (max-width: 700px)
+{
+    #loginContainer
+    {
+        width: 95%;
+    }
+    .loginWrapper
+    {
+        margin-top: 20% !important;
+        margin-bottom: 20% !important;
+    }
+}

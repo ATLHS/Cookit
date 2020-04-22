@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Livvic:900&display=swap');
+.nestyContainer
+{
+    margin: auto !important;
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
+    width: 90% !important;
+}
+.homepageimg
+{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.homeFontVector
+{
+    color: rgb(126, 57, 255);
+    font-size: 30px !important;
+}
+.headline
+{
+    text-align: left;
+    font-family: 'Livvic', sans-serif;
+}
+.content-container
+{
+    height: 900px;
+    width: 80%;
+}
+.content
+{
+    height: 800px;
+    background-color: white !important;
+} 
+.content-title
+{
+    font-size: 20px;
+    font-family: 'Livvic', sans-serif;
+}
+.content-info
+{
+    font-size: 1.2rem;
+    font-family: 'Livvic', sans-serif;
+}
+.content-description
+{
+    font-size: 1.2rem;
+}
+h2, h3
+{
+    font-family: 'Livvic', sans-serif; 
+}
+.headline > .nestyInfo
+{
+    text-align: left;
+}
+.nestyStep
+{
+    font-size: 30px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.nestyInfo
+{
+    font-size: 25px;
+}
+@media screen and (max-width: 700px)
+{
+    
+    .content-container
+    {
+        height: 1300px;
+        width: 100%;
+        background-color: #f8f9fa;
+    }
+    .content
+    {
+        height: 1200px;
+    }
+    .nestyInfo
+    {
+        font-size: 20px;
+        text-align: center;
+    }
+    .nestyStep
+    {
+        font-size: 2rem;
+        text-align: center;
+    }
+    .nestyContainer
+    {
+        margin-top: 10% !important;
+        margin-bottom: 10% !important;
+    }
+    .headline
+    {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-top: 2%;
+    } 
+    .headline > .nestyInfo
+    {
+        text-align: center;
+    }
+    .nestyImgContainer
+    {
+        text-align: center;
+        margin-top: 5%;
+    }
+    .nestyImg
+    {
+        width: 85%;
+    }
+    .homepageimg
+    {
+        display: none;
+    }
+    .content
+    {
+        background-color: #f8f9fa !important;
+    } 
+}

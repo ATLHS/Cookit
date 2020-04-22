@@ -1,0 +1,57 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Livvic:wght@900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5b1d91d1d7.js" crossorigin="anonymous"></script>
+    <title>Mern App Email</title>
+    <style>
+        #cookit {
+            font-family: 'Livvic', sans-serif;
+            font-size: 2rem;
+            color: black;
+        }
+        #cookit_CTA
+        {
+            background-color: rgb(126, 57, 255);
+        }
+        .cookitContainer
+        {
+            padding-top: 20% !important;
+        }
+    </style>
+</head>
+<body class="m-0 p-0 bg-light">
+    <div class="container-fluid h-100 p-4 cookitContainer">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1 class="text-center" id="cookit">CooKit</h1>
+            </div>
+        </div>
+        <div class="container bg-white p-3 h-auto mt-4 pt-4 pb-4 d-flex justify-content-center align-items-center flex-column">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="mb-4">Just one more step !</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="display-4 text-left" style="font-size: 20px;">Hey {{name}}, you're almost ready to start enjoying our delightful recipes.<br /> <br />Click the button below to activate your CooKit account.</p>
+                </div>
+            </div>
+            <div class="row mt-4"> 
+                <div class="col-md-12 text-left">
+                    <a id="cookit_CTA" class="btn btn-lg text-white" href="{{url}}" role="button">Activate account</a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4"> 
+            <div class="col-md-12 text-left">
+                <p class="text-center"><i class="far fa-copyright"></i> 2020 CooKit, All right reserved. 512 Means St - suite 404 - Atlanta, GA303318 USA.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

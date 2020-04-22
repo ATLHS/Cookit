@@ -1,0 +1,54 @@
+#downloadIcon
+{
+    width: 110px;
+    height: 70px;
+}
+.footerContainer
+{
+    padding: 20px;
+}
+.footerCol
+{
+    margin: 1.5rem
+}
+.footerContainerItems
+{
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.footerItems
+{
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: left;  
+    width: 100%;
+    font-size: 1rem;
+}
+@media screen and (max-width: 700px)
+{
+    .footerContainerItems
+    {
+        justify-content: center;
+        padding: 0;
+        flex-direction: unset;
+    }
+    .footerItems
+    {
+        text-align: center;
+        width: auto;
+        font-size: 12px;
+    }
+    .footerCol
+    {
+        margin: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    .footerContainer
+    {
+        padding: 0 !important;
+    }
+}

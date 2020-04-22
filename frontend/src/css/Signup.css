@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Livvic:900&display=swap');
+.signupForm
+{
+    width: 90%;
+}
+.signupContainer
+{
+    /* height: 620px; */
+    overflow: hidden;
+}
+.signupimg
+{
+    position: relative; 
+    height: 620px;
+    object-fit: cover;
+    width: 100%;
+}
+.signupH4, .signupLabel
+{
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.howItWork
+{
+    font-size: 13px;
+}
+.welcome
+{
+    font-family: 'Livvic', sans-serif;
+    font-size: 20px !important;
+}
+#formBasicEmail, #formBasicPassword, #formBasicConfirmPassword
+{
+    margin-bottom: 0rem !important;
+}
+.formGroupeName, .formGroupeEmail, .formGroupePassword, .formGroupeConfirmPassword
+{
+    margin-bottom: 0.2rem !important;
+}
+.formWrapper
+{
+    top: 50%; 
+    transform: translateY(-50%); 
+    height: 95%; 
+    margin-left: 2%;
+    position: absolute !important;
+}
+.signupinfo
+{
+    width: 90%;
+}
+.fa-stack
+{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.fa-stack-2x
+{
+    font-size: 1.6rem !important;
+    color: rgb(126, 57, 255);
+}
+.fa-stack-1x
+{
+    font-size: 0.7rem !important;
+    color: rgb(126, 57, 255);
+}
+@media screen and (max-width: 700px)
+{
+    .formWrapper
+    {
+        height: auto; 
+        margin-left: 0%;
+        position: unset;
+        padding-top: 10%;
+        padding-bottom: 10%;
+    }
+    .signupContainer
+    {
+        display: flex;
+        justify-content: center;
+    }
+    .signupimg
+    {
+        height: 1100px;
+    }
+}
+
+

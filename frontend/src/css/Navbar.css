@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Livvic:900&display=swap');
+.signupCTA
+{
+    background-color: rgb(126, 57, 255) !important;
+    border-color: rgb(126, 57, 255) !important;
+}
+.navbarDesktopLink
+{
+    color: black;
+}
+#cookit
+{
+    font-family: 'Livvic', sans-serif;
+    font-size: 2rem;
+}
+
+
