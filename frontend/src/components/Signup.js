@@ -1,22 +1,26 @@
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import signupImg from '../images/signupimg.jpg';
 import { useForm } from 'react-hook-form';
-import { Redirect } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 import '../css/Signup.css';
+import FacebookLoginButton from './layout/FacebookLoginButton';
 
 const Signup = () => {
     const [data, setData] = useState();
     const [show, setShow] = useState(false);
     const [signUpStatus, setSignUpStatus] = useState(false);
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, watch, errors, setValue } = useForm();
+
+    const responseFacebook = response => {
+        setValue("name", response.name)
+        setValue("email", response.email)
+    }
 
     const onSubmit = (data, e) => {
         fetch("/users/signup", {
@@ -34,7 +38,7 @@ const Signup = () => {
         })
         .catch(err => console.log(err))
     };
-    
+
     return (
         <Row className="m-0">
             <Modal show={show} onHide={() => setShow(false)} dialogClassName="modal-90w">
@@ -119,7 +123,8 @@ const Signup = () => {
                                         label={errors.termsandconditions ?  <small className="text-danger">You must agree before submitting.</small> : "Agree to terms and conditions"}
                                         />
                                     </Form.Group>
-                                    <Button className="signupCTA mt-2" type="submit" block>Cookit now</Button>
+                                    <Button className="signupCTA mt-2" type="submit" block>Sign Up</Button>
+                                    <FacebookLoginButton responseFacebook={responseFacebook} />
                                 </Form>
                             </Row>
                         </Col>

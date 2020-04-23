@@ -5,7 +5,6 @@
 }
 .signupContainer
 {
-    /* height: 620px; */
     overflow: hidden;
 }
 .signupimg
@@ -69,7 +68,7 @@
 {
     .formWrapper
     {
-        height: auto; 
+       
         margin-left: 0%;
         position: unset;
         padding-top: 10%;

@@ -8,7 +8,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import '../css/Login.css';
 import { setUserStorage } from './utils/Auth';
-import FacebookLoginButton from './layout/FacebookLoginButton'
+import FacebookLoginButton from './layout/FacebookLoginButton';
 
 const Login = () => {
     let location = useLocation();
@@ -41,10 +41,6 @@ const Login = () => {
             }
         })
         .catch(err => console.log(err));
-    }
-
-    const FacebookLoginCTA = () => {
-        console.log("clicked")
     }
 
     const onSubmit = data => { 
@@ -112,7 +108,7 @@ const Login = () => {
                                 <p className="text-center mb-0">or</p>
                                 <Col><hr></hr></Col>
                             </Row>
-                            <FacebookLoginButton FacebookLoginCTA={FacebookLoginCTA} responseFacebook={responseFacebook} />
+                            <FacebookLoginButton responseFacebook={responseFacebook} />
                         </Form>
                         <Col>
                             <p className="text-center mb-0">Don't have an account? <Link to="/users/signup">Sign up</Link></p>
