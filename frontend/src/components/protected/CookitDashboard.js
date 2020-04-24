@@ -7,7 +7,7 @@ const CookitDashboard = () => {
     const user = getUser();
     return (
         <>
-            <Row>
+            <Row className="m-0">
                 <Col>
                     <p>Hi {user.name} !</p>
                 </Col>

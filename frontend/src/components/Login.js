@@ -1,19 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation} from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import '../css/Login.css';
 import { setUserStorage } from './utils/Auth';
-import FacebookLoginButton from './layout/FacebookLoginButton';
+import FacebookLoginBtn from './layout/FacebookLoginBtn';
+import GoogleLoginBtn from './layout/GoogleLoginBtn';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Login = () => {
     let location = useLocation();
     const message = location.state;
     const [accountMessage, setAccountMessage] = useState()
+    const [isLoading, setIsLoading] = useState(false)
     const [isloggedin, setIsloggedin] = useState(false)
 
     const { register, handleSubmit, errors } = useForm({
@@ -23,16 +25,20 @@ const Login = () => {
         }
     })
 
-    const responseFacebook = response => {
-        fetch("/users/login/facebook/auth", {
+    // handle login with provider
+    const handleAuthProvider = response => {
+        setIsLoading(true)
+        const {email} = response.profileObj || response;
+        fetch("/users/login/provider/auth", {
             method: "POST",
             headers: {
                 'Content-Type': "application/json"
             },
-            body: JSON.stringify(response)
+            body: JSON.stringify({"email" : email})
         })
         .then(response => response.json())
         .then(res => {
+            setIsLoading(false)
             if(!res.isAuth){
                 setAccountMessage(res.info)
             } else {
@@ -42,7 +48,7 @@ const Login = () => {
         })
         .catch(err => console.log(err));
     }
-
+    // handle login
     const onSubmit = data => { 
         fetch("/users/login", {
             method: "POST",
@@ -72,6 +78,7 @@ const Login = () => {
     return (
         <>
         {!isloggedin ? 
+            !isLoading ? 
             <Row className="m-0 bg-light">
                 <Col md={5} className="loginWrapper">
                     <Row id="loginContainer" className="shadow row d-flex flex-column m-auto bg-white border-white rounded pl-3 pr-3 pt-4 pb-4 m-0">
@@ -108,14 +115,22 @@ const Login = () => {
                                 <p className="text-center mb-0">or</p>
                                 <Col><hr></hr></Col>
                             </Row>
-                            <FacebookLoginButton responseFacebook={responseFacebook} />
+                            <FacebookLoginBtn responseFacebook={handleAuthProvider} />
+                            <GoogleLoginBtn responseGoogle={handleAuthProvider} />
                         </Form>
                         <Col>
                             <p className="text-center mb-0">Don't have an account? <Link to="/users/signup">Sign up</Link></p>
                         </Col>
                     </Row>
                 </Col>
-            </Row> :
+            </Row> 
+            :  
+            <Row className="m-auto loading">
+                <Col className="text-center d-flex justify-content-center align-items-center">
+                    <Spinner  animation="border" size="lg"/>
+                </Col>
+            </Row> 
+            :
             <Redirect to="/dashboard" /> 
         }
         </>

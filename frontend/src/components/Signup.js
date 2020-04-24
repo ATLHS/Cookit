@@ -8,19 +8,14 @@ import signupImg from '../images/signupimg.jpg';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
+import { Link } from 'react-router-dom';
 import '../css/Signup.css';
-import FacebookLoginButton from './layout/FacebookLoginButton';
 
 const Signup = () => {
     const [data, setData] = useState();
     const [show, setShow] = useState(false);
     const [signUpStatus, setSignUpStatus] = useState(false);
-    const { register, handleSubmit, watch, errors, setValue } = useForm();
-
-    const responseFacebook = response => {
-        setValue("name", response.name)
-        setValue("email", response.email)
-    }
+    const { register, handleSubmit, watch, errors } = useForm();
 
     const onSubmit = (data, e) => {
         fetch("/users/signup", {
@@ -116,15 +111,16 @@ const Signup = () => {
                                             <small className="text-danger">{errors.confirmedPassword && "Password must match."}</small>
                                         </Form.Group>
                                     </Form.Row>
-                                    <Form.Group>
-                                        <Form.Check
-                                        name="termsandconditions"
-                                        ref={register({ required: true })}
-                                        label={errors.termsandconditions ?  <small className="text-danger">You must agree before submitting.</small> : "Agree to terms and conditions"}
-                                        />
-                                    </Form.Group>
+                                    <Form.Row>
+                                        <Form.Group className="p-1">
+                                            <Form.Check
+                                            name="termsandconditions"
+                                            ref={register({ required: true })}
+                                            label={errors.termsandconditions ?  <small className="text-danger">You must agree before submitting.</small> : "Agree to terms and conditions"}
+                                            />
+                                        </Form.Group><span className="text-muted ml-auto">Already have an account ? </span><Link to="/users/login"> Login</Link>
+                                    </Form.Row>
                                     <Button className="signupCTA mt-2" type="submit" block>Sign Up</Button>
-                                    <FacebookLoginButton responseFacebook={responseFacebook} />
                                 </Form>
                             </Row>
                         </Col>

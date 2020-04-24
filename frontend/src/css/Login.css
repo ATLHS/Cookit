@@ -13,6 +13,10 @@
     top: 60%;
     transform: translateY(-60%);
 }
+.loading
+{
+    height: 60%;
+}
 .loginWrapper
 {
     margin: auto;

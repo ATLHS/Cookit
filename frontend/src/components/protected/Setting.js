@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 const Weekkit = () => {
     return (
         <>
-            <Row>
+            <Row className="m-0">
                 <Col>
                     <p>Setting !</p>
                 </Col>

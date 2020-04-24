@@ -7,7 +7,7 @@ const Weekkit = () => {
     const user = getUser();
     return (
         <>
-            <Row>
+            <Row className="m-0">
                 <Col>
                     <p>Hi {user.email} !</p>
                 </Col>

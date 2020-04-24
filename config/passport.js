@@ -125,11 +125,12 @@ passport.use("login", new localStrategy({
     }
 ))
 
-passport.use('facebookLogin', new CustomStrategy((req, done) => {
-        const {email} = req.body;
+passport.use('providerlogin', new CustomStrategy((req, done) => {
+    const {email} = req.body;
         UserModel.findOne({email}, (err, user) => {
             if (err) {return done(err)}
-            if(!user) {return done(null, false, {message: "Aucun utilisateur ne correspond au compte facebook associé."})}
+            if (!user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
+            if(!user) {return done(null, false, {message: "No user corresponds to the associated provider account."})}
             return done(null, user);
         })
     }
