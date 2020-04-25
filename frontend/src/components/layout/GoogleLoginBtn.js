@@ -12,7 +12,8 @@ const GoogleLoginBtn = props => {
       render={renderProps => (
         <Button variant="outline-dark" className="d-flex justify-content-left align-items-center" onClick={renderProps.onClick} block><Image className="mr-auto" style={{height: "20px"}} src={googleIcon}/><span className="text-center mr-auto">Continue with google</span></Button>
     )}
-      onSuccess={props.responseGoogle}
+    cookiePolicy={'single_host_origin'}
+    onSuccess={props.responseGoogle}
     />
     )
 }

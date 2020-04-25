@@ -28,6 +28,7 @@ const Login = () => {
     // handle login with provider
     const handleAuthProvider = response => {
         setIsLoading(true)
+        console.log("clicked")
         const {email} = response.profileObj || response;
         fetch("/users/login/provider/auth", {
             method: "POST",
@@ -75,6 +76,10 @@ const Login = () => {
         }
     
     }, [message])
+    
+    const faillureGoogle = res => {
+        console.log(res)
+    }
     return (
         <>
         {!isloggedin ? 
@@ -116,7 +121,7 @@ const Login = () => {
                                 <Col><hr></hr></Col>
                             </Row>
                             <FacebookLoginBtn responseFacebook={handleAuthProvider} />
-                            <GoogleLoginBtn responseGoogle={handleAuthProvider} />
+                            <GoogleLoginBtn responseGoogle={handleAuthProvider} faillureGoogle={faillureGoogle} />
                         </Form>
                         <Col>
                             <p className="text-center mb-0">Don't have an account? <Link to="/users/signup">Sign up</Link></p>

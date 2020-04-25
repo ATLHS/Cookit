@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const hbs = require('nodemailer-handlebars');
 const path = require("path");
-const baseUrl = process.env.PROD_URL || "http://localhost:3000";
+const baseUrl = process.env.PROD_URL || "https://localhost:3000";
 
 passport.use("signup", new localStrategy({
     usernameField: "email",
