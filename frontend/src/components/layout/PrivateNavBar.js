@@ -15,7 +15,7 @@ const PrivateNavBar = () => {
                 <Nav className="ml-auto d-flex justify-content-between align-items-center w-25">
                     <Link to="/weekkit" className="text-decoration-none navbarDesktopLink" href="#">Week Kit</Link>
                     <Link to="/setting" className="text-decoration-none navbarDesktopLink" href="#">Setting</Link>
-                    <Link to="/" href="#"><Button className="signupCTA text-light" onClick={removeUserStorage}>Log out</Button></Link>
+                    <Link to="/users/login" href="#"><Button className="signupCTA text-light" onClick={removeUserStorage}>Log out</Button></Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
