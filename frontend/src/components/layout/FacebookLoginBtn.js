@@ -9,7 +9,7 @@ const FacebookLoginBtn = props => {
         <FacebookLogin
             appId={process.env.REACT_APP_FACEBOOK_APP_ID}
             autoLoad={false}
-            isMobile={false}
+            disableMobileRedirect={true}
             fields="name,email"
             callback={props.responseFacebook} 
             render={renderProps => (
