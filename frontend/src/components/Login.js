@@ -10,13 +10,23 @@ import { setUserStorage } from './utils/Auth';
 import FacebookLoginBtn from './layout/FacebookLoginBtn';
 import GoogleLoginBtn from './layout/GoogleLoginBtn';
 import Spinner from 'react-bootstrap/Spinner';
+import Modal from 'react-bootstrap/Modal';
+
+const ResetPasswordModal = props => {
+    const [show, setShow] = useState(props.show);
+    return (
+        <Modal show={show} onHide={props.onHide}>Hello</Modal>
+    )
+}
 
 const Login = () => {
     let location = useLocation();
     const message = location.state;
-    const [accountMessage, setAccountMessage] = useState()
-    const [isLoading, setIsLoading] = useState(false)
-    const [isloggedin, setIsloggedin] = useState(false)
+    const [accountMessage, setAccountMessage] = useState();
+    const [resetPasswordMessage, setResetPasswordMessage] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isloggedin, setIsloggedin] = useState(false);
+    const [show, setShow] = useState();
 
     const { register, handleSubmit, errors } = useForm({
         defaultValues: {
@@ -25,11 +35,28 @@ const Login = () => {
         }
     })
 
+    const { register: register2, errors: errors2, handleSubmit: handleSubmit2 } = useForm();
+    
+    // handle password reset
+    const handlePasswordReset = data => {
+        console.log(data)
+        fetch("/users/reset_password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(res => setResetPasswordMessage(res))
+        .catch(err => console.log(err));
+    }
+
     // handle login with provider
     const handleAuthProvider = response => {
         setIsLoading(true)
-        console.log("clicked")
         const {email} = response.profileObj || response;
+
         fetch("/users/login/provider/auth", {
             method: "POST",
             headers: {
@@ -76,15 +103,24 @@ const Login = () => {
         }
     
     }, [message])
+
+    const openModal = () => setShow(true); 
+    const closeModal = () => setShow(false); 
     
-    const faillureGoogle = res => {
-        console.log(res)
-    }
     return (
         <>
         {!isloggedin ? 
-            !isLoading ? 
+            !isLoading ?
             <Row className="m-0 bg-light">
+                <Modal className="p-4" show={show} onHide={closeModal} size="sm" centered>
+                    <Form onSubmit={handleSubmit2(handlePasswordReset)}>
+                        {resetPasswordMessage ? <p className={`${!resetPasswordMessage.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{resetPasswordMessage.message}</p> : <h3 className="text-center">Forgot your password?</h3> }
+                        {resetPasswordMessage ? "" : <p className="text-center">Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>}
+                        <Form.Control className="" name="email" type="email" ref={register2({ required: true })}></Form.Control>
+                        {errors2.email && <small className="text-danger text-center d-block m-auto">This field is required</small>}
+                        <Button className="loginCta border-0 mt-3" type="submit" block>Send reset link</Button>
+                    </Form>
+                </Modal>
                 <Col md={5} className="loginWrapper">
                     <Row id="loginContainer" className="shadow row d-flex flex-column m-auto bg-white border-white rounded pl-3 pr-3 pt-4 pb-4 m-0">
                         <Col className="mb-3">
@@ -94,7 +130,7 @@ const Login = () => {
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <Form.Group style={{marginBottom: "0.3rem"}} controlId="formBasicEmail">
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control className={errors.email && "is-invalid"} name="email" type="text" placeholder="Enter email" ref={register({required: true})}></Form.Control>
+                                <Form.Control className={errors.email && "is-invalid"} name="email" type="email" placeholder="Enter email" ref={register({required: true})}></Form.Control>
                                 {errors.email && <small className="text-danger">Please choose a email.</small>}
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
@@ -112,7 +148,7 @@ const Login = () => {
                                         label="Remember me ?" />
                                     </Form.Group>
                                 </Col>
-                                <Col><p className="text-right">Forgot password ?</p></Col>
+                                <Col><p type="button" className="text-right" onClick={openModal}>Forgot password ?</p></Col>
                             </Form.Row>
                             <Button className="loginCta border-0" type="submit" block>Login</Button>
                             <Row>
@@ -121,7 +157,7 @@ const Login = () => {
                                 <Col><hr></hr></Col>
                             </Row>
                             <FacebookLoginBtn responseFacebook={handleAuthProvider} />
-                            <GoogleLoginBtn responseGoogle={handleAuthProvider} faillureGoogle={faillureGoogle} />
+                            <GoogleLoginBtn responseGoogle={handleAuthProvider} />
                         </Form>
                         <Col>
                             <p className="text-center mb-0">Don't have an account? <Link to="/users/signup">Sign up</Link></p>

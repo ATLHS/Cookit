@@ -64,6 +64,11 @@
     font-size: 0.7rem !important;
     color: rgb(126, 57, 255);
 }
+.isMemberMobile
+{
+    display: none;
+    text-align: center;
+}
 @media screen and (max-width: 700px)
 {
     .formWrapper
@@ -82,6 +87,14 @@
     .signupimg
     {
         height: 1100px;
+    }
+    .isMemberMobile
+    {
+        display: block;
+    }
+    .isMemberDesktop
+    {
+        display: none;
     }
 }
 

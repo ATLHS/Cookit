@@ -30,7 +30,7 @@ router.post("/login", (req, res, next) => {
         res.status(200).json({isAuth: true, user, token});
     })(req, res, next);
 })
-router.post("/login/provider/auth", (req, res, next) => {
+router.post("/login/provider/auth", (req, res, next) => { 
     passport.authenticate("providerlogin", (err, user, info) => {
         if(err) {return next(err)}
         if(!user) {return res.json({isAuth: false, info})}
@@ -40,6 +40,17 @@ router.post("/login/provider/auth", (req, res, next) => {
         user._id = undefined;
         res.status(200).json({isAuth: true, user, token});
     })(req, res, next);
+})
+
+router.post("/reset_password", (req, res) => {
+    passport.authenticate("resetpassword", (err, user, token) => {
+        if(err) {return next(err)}
+        if(!user) {return res.json({isAuth: false, info})}
+        const token = jwt.sign(user.id, process.env.SecretOrKey);
+    })
+    const {email} = req.body;
+    
+    res.json({isConfirm: false, message: `No account exists for ${email}. Maybe you signed up using a different e-mail address.`})
 })
 
 module.exports = router; 

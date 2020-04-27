@@ -112,15 +112,21 @@ const Signup = () => {
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
-                                        <Form.Group className="p-1">
+                                        <Col className="p-1">
                                             <Form.Check
                                             name="termsandconditions"
                                             ref={register({ required: true })}
                                             label={errors.termsandconditions ?  <small className="text-danger">You must agree before submitting.</small> : "Agree to terms and conditions"}
                                             />
-                                        </Form.Group><span className="text-muted ml-auto">Already have an account ? </span><Link to="/users/login"> Login</Link>
+                                        </Col>
+                                        <Col className="text-right isMemberDesktop">
+                                            <span className="text-muted">Already have an account ? </span><Link to="/users/login"> Login</Link>
+                                        </Col>
                                     </Form.Row>
-                                    <Button className="signupCTA mt-2" type="submit" block>Sign Up</Button>
+                                    <Button className="signupCTA mt-4" type="submit" block>Sign Up</Button>
+                                    <Col className="isMemberMobile mt-4">
+                                        <span className="text-muted">Already have an account ? </span><Link to="/users/login"> Login</Link>
+                                    </Col>
                                 </Form>
                             </Row>
                         </Col>
