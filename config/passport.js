@@ -13,69 +13,67 @@ const path = require("path");
 const baseUrl = process.env.PROD_URL || "https://localhost:3000";
 
 passport.use("signup", new localStrategy({
-    usernameField: "email",
-    passwordField: "password",
-    session: false,
-    passReqToCallback: true
-}, (req, email, password, done) => {
-    UserModel.findOne({email}, (err, user) => {
-    if(err) {return done(err)}
-        if(user) {
-            return done(null, false, {
-                messageInfo: {
-                    message: `User already exist with : ${email}`, 
-                    isRegister: false
-                }
-            })
-        } else { 
-            bcrypt.hash(password, 10).then((hash) => {
-                const name = req.body.name;
-                UserModel.create({name, email, password: hash}).then(user => {
-                    const token = jwt.sign({userId: user.id}, process.env.SecretOrKey)
-                            
-                            //Transporter configuartion
-                            let transporter = nodemailer.createTransport({
-                                service: "hotmail",
-                                port: 587,
-                                secure: false,
-                                tls: { ciphers:'SSLv3' },
-                                auth: { 
-                                    user: process.env.EMAIL, 
-                                    pass: process.env.EMAIL_PASS 
-                                }
-                            });
-
-                            // Engine configuration
-                            transporter.use('compile', hbs({
-                                viewEngine: {
-                                    extName: ".handlebars",
-                                    defaultLayout: false,
-                                },
-                                viewPath: path.resolve(__dirname, "../views/"),
-                                extName: ".handlebars"
-                            }));
-                            // Send email    
-                            transporter.sendMail({
-                                from: '"Cookit" <s-attilah@hotmail.com>',
-                                to: user.email, 
-                                subject: "Cookit activer votre compte",
-                                template: 'mail_template',
-                                context: {
-                                    name: user.name,
-                                    url: `${baseUrl}/users/confirmation/${token}`
-                                }
-                            })
-                            // return 
-                            if(err) {return err}
-                            return done(null, user, {
-                                messageInfo: {
-                                    message: `A confirmation email has been sent to : ${email}`, 
-                                    isRegister: true
-                                }
-                            });
+        usernameField: "email",
+        passwordField: "password",
+        session: false,
+        passReqToCallback: true
+    }, (req, email, password, done) => {
+        UserModel.findOne({email}, (err, user) => {
+            if(err) {return done(err)}
+            if(user) {
+                return done(null, false, {
+                    messageInfo: {
+                        message: `User already exist with : ${email}`, 
+                        isRegister: false
+                    }
                 })
-            });
-        }
+            } else { 
+                bcrypt.hash(password, 10).then((hash) => {
+                    const name = req.body.name;
+                    UserModel.create({name, email, password: hash}).then(user => {
+                        const token = jwt.sign({userId: user.id}, process.env.SecretOrKey)
+                        //Transporter configuartion
+                        let transporter = nodemailer.createTransport({
+                            service: "hotmail",
+                            port: 587,
+                            secure: false,
+                            tls: { ciphers:'SSLv3' },
+                            auth: { 
+                                user: process.env.EMAIL, 
+                                pass: process.env.EMAIL_PASS 
+                            }
+                        });
+                        // Engine configuration
+                        transporter.use('compile', hbs({
+                            viewEngine: {
+                                extName: ".handlebars",
+                                defaultLayout: false,
+                            },
+                            viewPath: path.resolve(__dirname, "../views/"),
+                            extName: ".handlebars"
+                        }));
+                        // Send email    
+                        transporter.sendMail({
+                            from: '"Cookit" <s-attilah@hotmail.com>',
+                            to: user.email, 
+                            subject: "Cookit activer votre compte",
+                            template: 'mail_template',
+                            context: {
+                                name: user.name,
+                                url: `${baseUrl}/users/confirmation/${token}`
+                            }
+                        })
+                        // return 
+                        if(err) {return err}
+                        return done(null, user, {
+                            messageInfo: {
+                                message: `A confirmation email has been sent to : ${email}`, 
+                                isRegister: true
+                            }
+                        });
+                    })
+                });
+            }
     })
 }))
 
@@ -137,18 +135,72 @@ passport.use('providerlogin', new CustomStrategy((req, done) => {
     }
 ));
 
-passport.use('resetPassword', new CustomStrategy((req, done) => {
+
+passport.use('resetpassword', new CustomStrategy((req, done) => {
     const {email} = req.body;
-    console.log(email)
-        UserModel.findOne({email}, (err, user) => {
-            if (err) {return done(err)}
-            if (!user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
-            if(!user) {return done(null, false, {message: "No user corresponds to the associated provider account."})}
-            return done(null, user);
+    UserModel.findOne({email}, (err, user) => {
+        if (err) {return done(err)}
+        if(!user) {return done(null, false, {message: `No account exists for ${email}. Maybe you signed up using a different e-mail address.`, isConfirm: false})}
+        if (!user.isVerified) {return done(null, false, {message: "You have to confirm your email address before reset your password.", isConfirm: false})}
+        
+        const token = jwt.sign({hash: user.password}, process.env.SecretOrKey)
+
+        //Transporter configuartion
+        let transporter = nodemailer.createTransport({
+            service: "hotmail",
+            port: 587,
+            secure: false,
+            tls: { ciphers:'SSLv3' },
+            auth: { 
+                user: process.env.EMAIL, 
+                pass: process.env.EMAIL_PASS 
+            }
+        });
+
+        // Engine configuration
+        transporter.use('compile', hbs({
+            viewEngine: {
+                extName: ".handlebars",
+                defaultLayout: false,
+            },
+            viewPath: path.resolve(__dirname, "../views/"),
+            extName: ".handlebars"
+        }));
+        // Send email    
+        transporter.sendMail({
+            from: '"Cookit" <s-attilah@hotmail.com>',
+            to: user.email, 
+            subject: "Cookit reset your password",
+            template: 'reset_password_template',
+            context: {
+                name: user.name,
+                url: `${baseUrl}/users/set_password/${token}`
+            }
         })
-    }
-));
+        // return 
+        if(err) {return err}
+        return done(null, user, { message: `A link to reset your password has been sent to : ${email}.`, isConfirm: true});
+    })
+}));
 
+passport.use("check_before_reset_password", new JwtStrategy(opts, (req, payload, done) => {
+    UserModel.findOne({password: payload.hash}, (err, user) => {
+        if(err) {return done(err, false)}
+        if(!user) {done(null, false, { message: "Your request to reset password has already expired. Please try again.", isConfirm: false})}
+        return done(null, false, {isConfirm: true})
+    })
+}))
 
-
-
+passport.use("set_password", new JwtStrategy(opts, (req, payload, done) => {
+    const {password} = req.body;
+    UserModel.findOne({password: payload.hash}, (err, user) => {
+        if(err) {return done(err, false)}
+        bcrypt.hash(password, 10).then((hash) => {
+            user.password = hash;
+            user.save((err) => {
+                if(err) {return done(err, false)}
+                return done(null, user, { message: "Your password is reset. Please try to login", isReset: true})
+            })
+        })
+    })
+}))

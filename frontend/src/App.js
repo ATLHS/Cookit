@@ -13,6 +13,8 @@ import PublicRoute from './components/utils/PublicRoute';
 import CookitDashboard from './components/protected/CookitDashboard';
 import Weekkit from './components/protected/Weekkit';
 import Setting from './components/protected/Setting';
+import CheckBeforeResetPassword from './components/utils/CheckBeforeResetPassword';
+import SetPassword from './components/SetPassword';
 
 function App() {
 
@@ -33,6 +35,12 @@ function App() {
           </PublicRoute>
           <Route path="/users/confirmation/:token">
             <ConfirmAccount />
+          </Route>
+          <Route path="/users/set_password/:token">
+            <CheckBeforeResetPassword />
+          </Route>
+          <Route path="/users/set_password">
+            <SetPassword />
           </Route>
           <ProtectedRoute path="/dashboard">
             <CookitDashboard />

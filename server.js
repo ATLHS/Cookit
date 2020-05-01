@@ -19,10 +19,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 app.use("/users", users);
 
-app.get('/test', (req, res) => {
-    res.send("yes")
-})
-
 if (isProduction) { 
     //set static folder
     app.use(express.static(path.join(__dirname, "frontend/build")));

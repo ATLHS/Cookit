@@ -12,18 +12,12 @@ import GoogleLoginBtn from './layout/GoogleLoginBtn';
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
 
-const ResetPasswordModal = props => {
-    const [show, setShow] = useState(props.show);
-    return (
-        <Modal show={show} onHide={props.onHide}>Hello</Modal>
-    )
-}
-
 const Login = () => {
     let location = useLocation();
     const message = location.state;
-    const [accountMessage, setAccountMessage] = useState();
-    const [resetPasswordMessage, setResetPasswordMessage] = useState();
+    // Login message info
+    const [loginInfo, setLoginInfo] = useState();
+    const [response, setResponse] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [isloggedin, setIsloggedin] = useState(false);
     const [show, setShow] = useState();
@@ -39,7 +33,6 @@ const Login = () => {
     
     // handle password reset
     const handlePasswordReset = data => {
-        console.log(data)
         fetch("/users/reset_password", {
             method: "POST",
             headers: {
@@ -48,7 +41,7 @@ const Login = () => {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(res => setResetPasswordMessage(res))
+        .then(res => setResponse(res))
         .catch(err => console.log(err));
     }
 
@@ -68,7 +61,7 @@ const Login = () => {
         .then(res => {
             setIsLoading(false)
             if(!res.isAuth){
-                setAccountMessage(res.info)
+                setLoginInfo(res.info)
             } else {
                 setUserStorage(res.token, res.user);
                 setIsloggedin(true);
@@ -77,7 +70,7 @@ const Login = () => {
         .catch(err => console.log(err));
     }
     // handle login
-    const onSubmit = data => { 
+    const onSubmit = data => {
         fetch("/users/login", {
             method: "POST",
             headers: {
@@ -88,7 +81,7 @@ const Login = () => {
         .then(response => response.json())
         .then(res => {
             if(!res.isAuth){
-                setAccountMessage(res.info)
+                setLoginInfo(res.info)
             } else {
                 setUserStorage(res.token, res.user);
                 setIsloggedin(true);
@@ -99,7 +92,7 @@ const Login = () => {
 
     useEffect(() => {
         if (message) {
-            setAccountMessage(message.message)
+            setLoginInfo(message)
         }
     
     }, [message])
@@ -112,11 +105,11 @@ const Login = () => {
         {!isloggedin ? 
             !isLoading ?
             <Row className="m-0 bg-light">
-                <Modal className="p-4" show={show} onHide={closeModal} size="sm" centered>
+                <Modal className="p-4 resetModal" show={show} onHide={closeModal} size="sm" centered>
                     <Form onSubmit={handleSubmit2(handlePasswordReset)}>
-                        {resetPasswordMessage ? <p className={`${!resetPasswordMessage.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{resetPasswordMessage.message}</p> : <h3 className="text-center">Forgot your password?</h3> }
-                        {resetPasswordMessage ? "" : <p className="text-center">Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>}
-                        <Form.Control className="" name="email" type="email" ref={register2({ required: true })}></Form.Control>
+                        {response ? <p className={`${!response.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{response.message}</p> : <h3 className="text-center">Forgot your password?</h3> }
+                        {response ? "" : <p className="text-center">Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>}
+                        <Form.Control name="email" type="email" ref={register2({ required: true })}></Form.Control>
                         {errors2.email && <small className="text-danger text-center d-block m-auto">This field is required</small>}
                         <Button className="loginCta border-0 mt-3" type="submit" block>Send reset link</Button>
                     </Form>
@@ -125,7 +118,7 @@ const Login = () => {
                     <Row id="loginContainer" className="shadow row d-flex flex-column m-auto bg-white border-white rounded pl-3 pr-3 pt-4 pb-4 m-0">
                         <Col className="mb-3">
                             <h2 className="text-center m-auto">Login</h2>
-                            {accountMessage && <p className={`${!accountMessage.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{accountMessage.message}</p>} 
+                            {loginInfo && <p className={`${!loginInfo.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{loginInfo.message}</p>} 
                         </Col>
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <Form.Group style={{marginBottom: "0.3rem"}} controlId="formBasicEmail">
