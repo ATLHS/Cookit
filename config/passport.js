@@ -134,7 +134,6 @@ passport.use('providerlogin', new CustomStrategy((req, done) => {
     }
 ));
 
-
 passport.use('resetpassword', new CustomStrategy((req, done) => {
     const {email} = req.body;
     UserModel.findOne({email}, (err, user) => {

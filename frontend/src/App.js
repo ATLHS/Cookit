@@ -39,9 +39,9 @@ function App() {
           <Route path="/users/check_before_reset_password/:token">
             <CheckBeforeResetPassword />
           </Route>
-          <Route path="/users/set_password">
+          <ProtectedRoute path="/users/set_password">
             <SetPassword />
-          </Route>
+          </ProtectedRoute>
           <ProtectedRoute path="/dashboard">
             <CookitDashboard />
           </ProtectedRoute>
