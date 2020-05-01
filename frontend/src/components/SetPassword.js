@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 const SetPassword = () => {
     let location = useLocation();
     const {token} = location.state;
-    const [message, setMessage] = useState({isReset: false, message: ""});
+    const [message, setMessage] = useState({isConfirm: false, message: ""});
     const { register, handleSubmit, watch, errors } = useForm();
     
     const setPassword = value => {
@@ -22,12 +22,12 @@ const SetPassword = () => {
             body: JSON.stringify(value)
         })
         .then(response => response.json())
-        .then(res => setMessage({isReset: res.isReset, message: res.message}))
+        .then(res => setMessage({isConfirm: res.isConfirm, message: res.message}))
         .catch(err => console.log(err));
     }
     return (
         <>
-            {!message.isReset ?
+            {!message.isConfirm ?
                 <Row className="m-0 bg-light">
                     <Col md={5} className="loginWrapper">
                         <Row id="loginContainer" className="shadow row d-flex flex-column m-auto bg-white border-white rounded pl-3 pr-3 pt-4 pb-4 m-0">

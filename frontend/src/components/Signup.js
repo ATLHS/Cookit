@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 import '../css/Signup.css';
 
 const Signup = () => {
-    const [data, setData] = useState();
     const [show, setShow] = useState(false);
     const [signUpStatus, setSignUpStatus] = useState(false);
     const { register, handleSubmit, watch, errors } = useForm();

@@ -36,7 +36,7 @@ function App() {
           <Route path="/users/confirmation/:token">
             <ConfirmAccount />
           </Route>
-          <Route path="/users/set_password/:token">
+          <Route path="/users/check_before_reset_password/:token">
             <CheckBeforeResetPassword />
           </Route>
           <Route path="/users/set_password">

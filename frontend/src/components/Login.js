@@ -15,13 +15,14 @@ import Modal from 'react-bootstrap/Modal';
 const Login = () => {
     let location = useLocation();
     const message = location.state;
+
     // Login message info
-    const [loginInfo, setLoginInfo] = useState();
     const [response, setResponse] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [isloggedin, setIsloggedin] = useState(false);
     const [show, setShow] = useState();
 
+    // Login form hook
     const { register, handleSubmit, errors } = useForm({
         defaultValues: {
             email: localStorage.getItem('email') || "",
@@ -29,10 +30,11 @@ const Login = () => {
         }
     })
 
+    // Reset password form hook
     const { register: register2, errors: errors2, handleSubmit: handleSubmit2 } = useForm();
     
     // handle password reset
-    const handlePasswordReset = data => {
+    const handlePasswordReset = (data, e) => {
         fetch("/users/reset_password", {
             method: "POST",
             headers: {
@@ -41,7 +43,11 @@ const Login = () => {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(res => setResponse(res))
+        .then(res => {
+            setResponse(res);
+            e.target.reset();
+            closeModal()
+        })
         .catch(err => console.log(err));
     }
 
@@ -61,7 +67,7 @@ const Login = () => {
         .then(res => {
             setIsLoading(false)
             if(!res.isAuth){
-                setLoginInfo(res.info)
+                setResponse(res.info)
             } else {
                 setUserStorage(res.token, res.user);
                 setIsloggedin(true);
@@ -81,7 +87,7 @@ const Login = () => {
         .then(response => response.json())
         .then(res => {
             if(!res.isAuth){
-                setLoginInfo(res.info)
+                setResponse(res.info)
             } else {
                 setUserStorage(res.token, res.user);
                 setIsloggedin(true);
@@ -92,7 +98,7 @@ const Login = () => {
 
     useEffect(() => {
         if (message) {
-            setLoginInfo(message)
+            setResponse(message)
         }
     
     }, [message])
@@ -107,8 +113,8 @@ const Login = () => {
             <Row className="m-0 bg-light">
                 <Modal className="p-4 resetModal" show={show} onHide={closeModal} size="sm" centered>
                     <Form onSubmit={handleSubmit2(handlePasswordReset)}>
-                        {response ? <p className={`${!response.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{response.message}</p> : <h3 className="text-center">Forgot your password?</h3> }
-                        {response ? "" : <p className="text-center">Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>}
+                        <h3 className="text-center">Forgot your password?</h3>
+                        <p className="text-center">Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>
                         <Form.Control name="email" type="email" ref={register2({ required: true })}></Form.Control>
                         {errors2.email && <small className="text-danger text-center d-block m-auto">This field is required</small>}
                         <Button className="loginCta border-0 mt-3" type="submit" block>Send reset link</Button>
@@ -118,7 +124,7 @@ const Login = () => {
                     <Row id="loginContainer" className="shadow row d-flex flex-column m-auto bg-white border-white rounded pl-3 pr-3 pt-4 pb-4 m-0">
                         <Col className="mb-3">
                             <h2 className="text-center m-auto">Login</h2>
-                            {loginInfo && <p className={`${!loginInfo.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{loginInfo.message}</p>} 
+                            {response && <p className={`${!response.isConfirm ? "text-danger" : "text-success"} text-center mb-0 mt-2`}>{response.message}</p>} 
                         </Col>
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <Form.Group style={{marginBottom: "0.3rem"}} controlId="formBasicEmail">

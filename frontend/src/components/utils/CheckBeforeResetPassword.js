@@ -5,9 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const CheckBeforeResetPassword = () => {
-    const [message, setMessage] = useState(false);
+    const [message, setMessage] = useState();
     const {token} = useParams();
-    
+
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
@@ -26,7 +26,7 @@ const CheckBeforeResetPassword = () => {
     return message ? 
         !message.isConfirm ? 
             <>
-                <Redirect to={{ pathname: "/users/login", state: {message} }}/>
+                <Redirect to={{ pathname: "/users/login", state: message }}/>
             </>
             :
             <>

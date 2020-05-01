@@ -69,24 +69,24 @@ const Nesty = () => {
                 <Row className="mt-0 mb-0 mr-auto ml-auto d-flex justify-content-center align-items-center">
                     <Row className="d-flex justify-content-around m-3"> 
                         <Col md={5} className="m-0 mt-4 mb-4 d-flex flex-column">
-                            <Row className="m-0 mb-4 text-center"><p className="m-auto"><span><i class="fas fa-bread-slice homeFontVector"></i></span></p></Row>
+                            <Row className="m-0 mb-4 text-center"><p className="m-auto"><span><i className="fas fa-bread-slice homeFontVector"></i></span></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-info"><strong>Delicious, chef-designed recipes</strong></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-description text-muted">With step-by-step instructions so you never miss a beat (or beet)</p></Row>
                         </Col>
                         <Col md={5} className="m-0 mt-4 mb-4 d-flex flex-column">
-                            <Row className="m-0 mb-4 text-center"><p className="m-auto content-title"><span><i class="fas fa-carrot homeFontVector"></i></span></p></Row>
+                            <Row className="m-0 mb-4 text-center"><p className="m-auto content-title"><span><i className="fas fa-carrot homeFontVector"></i></span></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-info"><strong>Responsibly-sourced, quality ingredients</strong></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-description text-muted">Like fresh produce, sustainable seafood and exclusive spice blends</p></Row>
                         </Col>
                     </Row>
                     <Row className="d-flex justify-content-around m-3"> 
                         <Col md={5} className="m-0 mt-4 mb-4 d-flex flex-column">
-                            <Row className="m-0 mb-4 text-center"><p className="m-auto content-title"><span><i class="fas fa-balance-scale-right homeFontVector"></i></span></p></Row>
+                            <Row className="m-0 mb-4 text-center"><p className="m-auto content-title"><span><i className="fas fa-balance-scale-right homeFontVector"></i></span></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-info"><strong>Perfectly-portioned amounts</strong></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-description text-muted">So no morsels or dollops go to waste</p></Row>
                         </Col>
                         <Col md={5} className="m-0 mt-4 mb-4 d-flex flex-column">
-                            <Row className="m-0 mb-4 text-center"><p className="m-auto content-title"><i class="fas fa-recycle homeFontVector"></i></p></Row>
+                            <Row className="m-0 mb-4 text-center"><p className="m-auto content-title"><i className="fas fa-recycle homeFontVector"></i></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-info"><strong>Recyclable ice packs and packaging</strong></p></Row>
                             <Row className="m-0"><p className="m-auto text-center content-description text-muted">To ensure your ingredients stay fresh until you’re home and ready</p></Row>
                         </Col>

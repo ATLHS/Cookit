@@ -125,7 +125,6 @@ passport.use("login", new localStrategy({
 
 passport.use('providerlogin', new CustomStrategy((req, done) => {
     const {email} = req.body;
-    console.log(email)
         UserModel.findOne({email}, (err, user) => {
             if (err) {return done(err)}
             if (!user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
@@ -174,20 +173,20 @@ passport.use('resetpassword', new CustomStrategy((req, done) => {
             template: 'reset_password_template',
             context: {
                 name: user.name,
-                url: `${baseUrl}/users/set_password/${token}`
+                url: `${baseUrl}/users/check_before_reset_password/${token}`
             }
         })
         // return 
         if(err) {return err}
-        return done(null, user, { message: `A link to reset your password has been sent to : ${email}.`, isConfirm: true});
+        return done(null, user, { message: `A link to reset your password has been sent to : \n ${email}.`, isConfirm: true});
     })
 }));
 
 passport.use("check_before_reset_password", new JwtStrategy(opts, (req, payload, done) => {
     UserModel.findOne({password: payload.hash}, (err, user) => {
         if(err) {return done(err, false)}
-        if(!user) {done(null, false, { message: "Your request to reset password has already expired. Please try again.", isConfirm: false})}
-        return done(null, false, {isConfirm: true})
+        if(!user) {return done(null, false, { message: "Your request to reset password has already expired. Please try again.", isConfirm: false})}
+        return done(null, true, {isConfirm: true})
     })
 }))
 
@@ -199,7 +198,7 @@ passport.use("set_password", new JwtStrategy(opts, (req, payload, done) => {
             user.password = hash;
             user.save((err) => {
                 if(err) {return done(err, false)}
-                return done(null, user, { message: "Your password is reset. Please try to login", isReset: true})
+                return done(null, user, { message: "Your password is reset, \n Please try to login.", isConfirm: true})
             })
         })
     })
