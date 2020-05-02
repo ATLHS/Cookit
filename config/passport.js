@@ -11,7 +11,12 @@ const nodemailer = require("nodemailer");
 const hbs = require('nodemailer-handlebars');
 const path = require("path");
 const baseUrl = process.env.PROD_URL || "https://localhost:3000";
+const ipapi = require('ipapi.co');
 
+
+
+
+  
 passport.use("signup", new localStrategy({
         usernameField: "email",
         passwordField: "password",
@@ -63,8 +68,10 @@ passport.use("signup", new localStrategy({
                                 url: `${baseUrl}/users/confirmation/${token}`
                             }
                         })
+                        
                         // return 
                         if(err) {return err}
+
                         return done(null, user, {
                             messageInfo: {
                                 message: `A confirmation email has been sent to : ${email}`, 
@@ -197,6 +204,51 @@ passport.use("set_password", new JwtStrategy(opts, (req, payload, done) => {
             user.password = hash;
             user.save((err) => {
                 if(err) {return done(err, false)}
+                
+                //Transporter configuartion
+                let date_ob = new Date();
+                let date = ("0" + date_ob.getDate()).slice(-2);
+                let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                let year = date_ob.getFullYear();
+                let hours = date_ob.getHours();
+                let minutes = date_ob.getMinutes();
+
+                const currentData = `${date}/${month}/${year}  ${hours}:${minutes}`
+                let transporter = nodemailer.createTransport({
+                    service: "hotmail",
+                    port: 587,
+                    secure: false,
+                    tls: { ciphers:'SSLv3' },
+                    auth: { 
+                        user: process.env.EMAIL, 
+                        pass: process.env.EMAIL_PASS 
+                    }
+                });
+
+                // Engine configuration
+                transporter.use('compile', hbs({
+                    viewEngine: {
+                        extName: ".handlebars",
+                        defaultLayout: false,
+                    },
+                    viewPath: path.resolve(__dirname, "../views/"),
+                    extName: ".handlebars"
+                }));
+                // Send email  
+                const sendEmail = loc => {  
+                    transporter.sendMail({
+                        from: '"Cookit" <s-attilah@hotmail.com>',
+                        to: user.email, 
+                        subject: "Account activity: changing the password",
+                        template: 'reset_password_confirmation',
+                        context: {
+                            date: currentData,
+                            location: loc
+                        }
+                    })
+                }
+                ipapi.location(sendEmail)
+            
                 return done(null, user, { message: "Your password is reset, \n Please try to login.", isConfirm: true})
             })
         })
