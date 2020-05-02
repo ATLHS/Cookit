@@ -2,7 +2,14 @@
 {
     background-color: rgb(126, 57, 255) !important; 
 }
-
+.cookitColor
+{
+    color: rgb(126, 57, 255) !important;
+}
+.cookitBackgroundColor
+{
+    background-color: rgb(126, 57, 255) !important;
+}
 #loginContainer
 {
     width: 65%;

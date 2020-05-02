@@ -137,18 +137,18 @@ const Login = () => {
                                 <Form.Control className={errors.password && "is-invalid"} name="password" type="password" placeholder="Enter password" ref={register({required: true})}></Form.Control>
                                 {errors.password && <small className="text-danger">Please enter a password.</small>}
                             </Form.Group>
-                            <Form.Row>
-                                <Col>
-                                    <Form.Group id="formGridCheckbox">
-                                        <Form.Check 
+                            <Form.Group className="pl-2 pr-2">
+                                <Form.Row>
+                                    <Form.Check 
+                                        className="mr-auto"
                                         ref={register}
                                         name="rememberMe" 
-                                        type="checkbox" 
-                                        label="Remember me ?" />
-                                    </Form.Group>
-                                </Col>
-                                <Col><p type="button" className="text-right" onClick={openModal}>Forgot password ?</p></Col>
-                            </Form.Row>
+                                        type="checkbox"
+                                        label="Remember me?" 
+                                    />
+                                    <Button variant="link" className="text-right text-decoration-none p-0 border-0 ml-auto cookitColor" onClick={openModal}>Forgot password?</Button>
+                                </Form.Row>
+                            </Form.Group>
                             <Button className="loginCta border-0" type="submit" block>Login</Button>
                             <Row>
                                 <Col><hr></hr></Col>
@@ -159,7 +159,7 @@ const Login = () => {
                             <GoogleLoginBtn responseGoogle={handleAuthProvider} />
                         </Form>
                         <Col>
-                            <p className="text-center mb-0">Don't have an account? <Link to="/users/signup">Sign up</Link></p>
+                            <p className="text-center mb-0 mt-3">Don't have an account? <Link className="cookitColor" to="/users/signup">Sign up</Link></p>
                         </Col>
                     </Row>
                 </Col>
