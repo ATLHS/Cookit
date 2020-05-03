@@ -134,8 +134,8 @@ passport.use('providerlogin', new CustomStrategy((req, done) => {
     const {email} = req.body;
         UserModel.findOne({email}, (err, user) => {
             if (err) {return done(err)}
-            if (!user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
             if(!user) {return done(null, false, {message: "No user corresponds to the associated provider account."})}
+            if (!user && !user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
             return done(null, user);
         })
     }
