@@ -40,6 +40,7 @@ router.get("/confirmation", (req, res, next) => {
     passport.authenticate("confirmation", {session: false}, (err, user, info) => {
         if(err) {return next(err)}
         if(!user) {return res.json(info.messageInfo)}
+        console.log(info.messageInfo)
         res.json(info.messageInfo);
     })(req, res, next);
 })

@@ -62,7 +62,7 @@ passport.use("signup", new localStrategy({
                             from: '"Cookit" <s-attilah@hotmail.com>',
                             to: user.email, 
                             subject: "Cookit activer votre compte",
-                            template: 'mail_template',
+                            template: 'sign_up_email_confirmation',
                             context: {
                                 name: user.name,
                                 url: `${baseUrl}/users/confirmation/${token}`
@@ -135,7 +135,7 @@ passport.use('providerlogin', new CustomStrategy((req, done) => {
         UserModel.findOne({email}, (err, user) => {
             if (err) {return done(err)}
             if(!user) {return done(null, false, {message: "No user corresponds to the associated provider account."})}
-            if (!user && !user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
+            if (!user.isVerified) {return done(null, false, {message: "You have to confirm your email address before continuing."})}
             return done(null, user);
         })
     }

@@ -25,7 +25,7 @@ const ConfirmAccount = () => {
     
     return message ? (
         <>
-            <Redirect to={{ pathname: "/users/login", state: {message} }}/>
+            <Redirect to={{ pathname: "/users/login", state: message }}/>
         </>
     ) : (
         <>
