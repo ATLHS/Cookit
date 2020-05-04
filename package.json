@@ -34,6 +34,8 @@
     "passport-facebook": "^3.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "react-id-swiper": "^3.0.0",
+    "swiper": "^5.3.8",
     "validator": "^13.0.0"
   }
 }

@@ -4,12 +4,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import cookit from '../images/cookit.png';
-import '../css/Nesty.css';
 import nestySvg1 from '../images/nestySvg1.svg';
 import nestySvg2 from '../images/nestySvg2.svg';
 import nestySvg3 from '../images/nestySvg3.svg';
 import homepageimg from '../images/homepageimg.jpg';
 import {Link} from 'react-router-dom';
+import WeekMealCard from './WeekMealCard';
+import Swiper from 'react-id-swiper';
+import '../css/Nesty.css';
+import 'swiper/css/swiper.css';
+
+const params = {
+    slidesPerView: "auto",
+    spaceBetween: 30,
+    freeMode: true
+  }
 
 const MobileCTA = () => {
     return (
@@ -21,7 +30,6 @@ const MobileCTA = () => {
 
 const Nesty = () => {
     const isMobile = window.innerWidth < 700;
-
     return (
         <>
         <Row className="nestyContainer">
@@ -62,6 +70,20 @@ const Nesty = () => {
                 <p className="nestyInfo text-muted">Following our step-by-step instructions you’ll experience the magic of cooking recipes that our chefs create with your family’s tastes in mind.</p>
             </Col>
         </Row>
+        <Row className="m-0">
+            <Row className="d-flex justify-content-center align-items-center m-auto">
+                <h3 className="nestyStep font-weight-bold mt-5 mb-5">Week of may 11th</h3>
+            </Row>
+            <Swiper {...params}>
+                <WeekMealCard />
+                <WeekMealCard />
+                <WeekMealCard />
+                <WeekMealCard />
+                <WeekMealCard />
+                <WeekMealCard />
+                <WeekMealCard />
+            </Swiper>
+        </Row>
         <Row className="d-flex justify-content-center align-items-center ml-auto mr-auto mt-5 content-container">
             <Image className="homepageimg" src={homepageimg} />
             <Col md={7} className="d-flex justify-content-center align-items-center flex-column m-auto position-absolute content">
@@ -95,7 +117,6 @@ const Nesty = () => {
                 <Row className="mt-0 mb-4 mr-auto ml-auto text-center"><Button as={Link} to="/users/signup" className="signupCTA text-light" size="lg">Choose your plan</Button></Row>
             </Col>
         </Row>
-        
         </>
     );
 }

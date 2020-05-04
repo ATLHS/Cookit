@@ -17,6 +17,10 @@
     color: rgb(126, 57, 255);
     font-size: 30px !important;
 }
+.swiper-container
+{
+    padding: 2% !important;
+}
 .headline
 {
     text-align: left;
