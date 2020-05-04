@@ -15,9 +15,14 @@ import '../css/Nesty.css';
 import 'swiper/css/swiper.css';
 
 const params = {
+    direction: 'horizontal',
     slidesPerView: "auto",
     spaceBetween: 30,
-    freeMode: true
+    freeMode: true,
+    mousewheel: true,
+    scrollbar: {
+        draggable: true
+      }
   }
 
 const MobileCTA = () => {
