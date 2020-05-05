@@ -1,12 +1,14 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import '../css/WeekMealCard.css';
+import meal from '../images/meal.jpg';
+
 
 const WeekMealCard = () => {
     return (
         <>
             <Card className="swiper-slide">
-                <Card.Img className="img-fluid" variant="top" src="https://d22xiosjihvnzy.cloudfront.net/eyJidWNrZXQiOiJkaXNoLWJ1Y2tldCIsImtleSI6IjVkNGMyYjM3ODQyY2M3NDA1MzEzZGRhOS5qcGVnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo3Njh9LCJ3ZWJwIjp7InF1YWxpdHkiOjEwMH19fQ==" />
+                <Card.Img className="img-fluid" variant="top" src={meal} />
                 <Card.Body>
                     <Card.Title>Pesto Bowl</Card.Title>
                     <Card.Text>

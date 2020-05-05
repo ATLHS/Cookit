@@ -19,10 +19,6 @@ const params = {
     slidesPerView: "auto",
     spaceBetween: 30,
     freeMode: true,
-    mousewheel: true,
-    scrollbar: {
-        draggable: true
-      }
   }
 
 const MobileCTA = () => {
