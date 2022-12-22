@@ -24,7 +24,7 @@
     "ip-location": "^1.0.1",
     "ipapi.co": "^0.3.0",
     "is-empty": "^1.2.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.6",
     "nodemailer": "^6.4.6",
     "nodemailer-handlebars": "^1.0.1",
